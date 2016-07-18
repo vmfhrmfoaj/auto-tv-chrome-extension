@@ -3,13 +3,16 @@ CONTENT_SRCS    := $(shell find src/auto_tv_chrome_extension/content    -name "*
 IGNORED := $(shell git check-ignore **/*)
 
 all: release
-release: resources/background/main.js resources/content/main.js resources/manifest.json
+release: resources/background/main.js resources/content/main.js resources/content/node_modules resources/manifest.json
 
 resources/background/main.js: $(BACKGROUND_SRCS)
 	lein cljsbuild once background
 
 resources/content/main.js: $(CONTENT_SRCS)
 	lein cljsbuild once content
+
+resources/content/node_modules:
+	lein npm install
 
 resources/manifest.json: resources/manifest.clj
 	lein trampoline run -m clojure.main resources/manifest.clj

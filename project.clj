@@ -6,9 +6,13 @@
             :url "https://www.gnu.org/licenses/gpl-3.0.en.html"}
 
   :dependencies [[org.clojure/clojure "1.9.0-alpha10"]
-                 [org.clojure/clojurescript "1.9.89"]]
+                 [org.clojure/clojurescript "1.9.89"]
+                 [domina "1.0.3"]
+                 [org.clojure/core.async "0.2.385"]]
   :plugins [[lein-npm "0.6.1"]]
-  :npm {:dependencies [[source-map-support "0.4.0"]]}
+  :npm {:root "resources/content"
+        :dependencies [[source-map-support "0.4.0"]
+                       [clipboard-js "0.2.0"]]}
   :profiles {:dev {:dependencies [[expectations "2.1.8"]
                                   [org.clojure/test.check "0.9.0"]]
                    :plugins [[lein-expectations "0.0.8"]

@@ -19,9 +19,11 @@
       manifest {:name (str name)
                 :description (get proj :description)
                 :version (-> version (str/split #"-") (first))
-                :permissions ["tabs" "http://*/*" "https://*/*"]
+                :permissions ["tabs" "clipboardWrite" "http://*/*" "https://*/*"]
                 :background {:scripts [(get-js "background")]}
-                :content-scripts [{:matches ["*://*/*"] :js [(get-js "content")]}]
+                :content-scripts [{:matches ["*://search.naver.com/search.naver?where=nexearch*"]
+                                   :js ["content/node_modules/clipboard-js/clipboard.min.js"
+                                        (get-js "content")]}]
                 :manifest_version 2}]
   (spit "resources/manifest.json"
         (json/write-str manifest
